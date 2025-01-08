@@ -17,7 +17,7 @@ describe('Home API', () => {
       expect(response.status).toBe(200);
 
       expect(response.body).toEqual({
-        message: 'Welcome to the Inventory Management API',
+        message: 'Welcome to the Inventory CQRS API',
         endpoints: {
           products: '/api/products',
           orders: '/api/orders',

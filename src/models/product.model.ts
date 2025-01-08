@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
+import { ProductDto } from '../types';
 
 export interface IProduct extends Document {
   name: string;
@@ -18,3 +19,11 @@ const ProductSchema: Schema = new Schema(
 );
 
 export const ProductModel = mongoose.model<IProduct>('Product', ProductSchema);
+
+export const toProductDto = (product: IProduct): ProductDto => ({
+  id: product.id,
+  name: product.name,
+  description: product.description,
+  price: product.price,
+  stock: product.stock,
+});

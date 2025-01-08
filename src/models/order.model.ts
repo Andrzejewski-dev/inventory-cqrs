@@ -26,3 +26,14 @@ const OrderSchema = new Schema<IOrder>({
 });
 
 export const OrderModel = mongoose.model<IOrder>('Order', OrderSchema);
+
+export const toOrderDto = (order: IOrder): OrderDto => ({
+  id: order.id,
+  customerId: order.customerId,
+  total: order.total,
+  createdAt: +order.createdAt,
+  products: order.products.map((product) => ({
+    productId: product.productId,
+    quantity: product.quantity,
+  })),
+});

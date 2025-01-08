@@ -4,10 +4,33 @@ import { createHomeRouter } from './routes';
 import { logger } from './utils';
 import { errorHandler, loggerMiddleware } from './middlewares';
 import { connectDB } from './db';
+import { CommandBus, QueryBus } from './buses';
+import {
+  CreateProductCommandHandler,
+  RestockProductCommandHandler,
+  SellProductCommandHandler,
+  CreateOrderCommandHandler,
+} from './commands';
+import {
+  GetProductByIdQueryHandler,
+  GetProductsQueryHandler,
+  GetOrdersQueryHandler,
+} from './queries';
 
 const app = express();
 app.use(bodyParser.json());
 app.use(loggerMiddleware);
+
+const commandBus = new CommandBus();
+commandBus.register('CreateProduct', new CreateProductCommandHandler());
+commandBus.register('RestockProduct', new RestockProductCommandHandler());
+commandBus.register('SellProduct', new SellProductCommandHandler());
+commandBus.register('CreateOrder', new CreateOrderCommandHandler());
+
+const queryBus = new QueryBus();
+queryBus.register('GetProductById', new GetProductByIdQueryHandler());
+queryBus.register('GetProducts', new GetProductsQueryHandler());
+queryBus.register('GetOrders', new GetOrdersQueryHandler());
 
 app.use('/', createHomeRouter());
 
