@@ -1,6 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { createHomeRouter } from './routes';
+import {
+  createHomeRouter,
+  createOrdersRouter,
+  createProductsRouter,
+} from './routes';
 import { logger } from './utils';
 import { errorHandler, loggerMiddleware } from './middlewares';
 import { connectDB } from './db';
@@ -33,6 +37,8 @@ queryBus.register('GetProducts', new GetProductsQueryHandler());
 queryBus.register('GetOrders', new GetOrdersQueryHandler());
 
 app.use('/', createHomeRouter());
+app.use('/api', createProductsRouter(commandBus, queryBus));
+app.use('/api', createOrdersRouter(commandBus, queryBus));
 
 app.use(errorHandler);
 

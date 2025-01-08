@@ -1,5 +1,5 @@
 {
-  "name": "inventory-api",
+  "name": "inventory-cqrs",
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
@@ -19,6 +19,7 @@
     "dotenv": "^16.4.7",
     "env-cmd": "^10.1.0",
     "express": "^4.21.2",
+    "joi": "^17.13.3",
     "mongoose": "^8.9.3",
     "winston": "^3.17.0"
   },
